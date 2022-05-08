@@ -1,0 +1,15 @@
+local http = game:GetService("HttpService")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local remoteEvent = ReplicatedStorage:WaitForChild("NotifyDiscordLevelUp")
+
+local function NotifyDiscord(player)
+	local progress = _G.clicks/20
+	local Data = {
+		["content"] = "$progressbar " .. progress .. " " .. _G.ranks
+	}
+	Data = http:JSONEncode(Data)
+	http:PostAsync("https://discordapp.com/api/webhooks/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx", Data)
+
+end
+
+remoteEvent.OnServerEvent:Connect(NotifyDiscord)
