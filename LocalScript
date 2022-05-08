@@ -1,0 +1,15 @@
+local clicks = 0
+local ranks = 0
+
+-- In order to use the InputBegan event, the UserInputService service must be used
+local UserInputService = game:GetService("UserInputService")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local RankManager = require(ReplicatedStorage:WaitForChild("rankManager"))
+
+
+-- A sample function providing multiple usage cases for various types of user input
+UserInputService.InputBegan:Connect(function(input, gameProcessed)
+	if input.UserInputType == Enum.UserInputType.MouseButton1 then
+		RankManager.click()
+	end
+end)
