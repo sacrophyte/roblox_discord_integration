@@ -1,0 +1,33 @@
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local remoteFunctionGetClicksRanks = ReplicatedStorage:WaitForChild("GetClicksRanks")
+local remoteEventUpdateClicks = ReplicatedStorage:WaitForChild("UpdateClicks")
+local remoteEventUpdateRanks = ReplicatedStorage:WaitForChild("UpdateRanks")
+local remoteEvent = ReplicatedStorage:WaitForChild("NotifyDiscordLevelUp")
+
+local rankManager = {}
+local clicks = 0
+local ranks = 0
+
+function rankManager.click()
+	clicks, ranks = remoteFunctionGetClicksRanks:InvokeServer()
+	clicks = clicks + 1
+	remoteEventUpdateClicks:FireServer(clicks)
+
+	if clicks < 20 then	
+		remoteEvent:FireServer()
+		print("clicks=" .. clicks .. "/20  ranks=" .. ranks)
+	else
+		remoteEvent:FireServer()
+		print("clicks=" .. clicks .. "/20  ranks=" .. ranks)
+		ranks = ranks + 1
+		clicks = 0
+		remoteEventUpdateRanks:FireServer(ranks)
+		remoteEventUpdateClicks:FireServer(clicks)
+	end
+end
+
+function rankManager.getStats()
+	return clicks, ranks
+end
+
+return rankManager
