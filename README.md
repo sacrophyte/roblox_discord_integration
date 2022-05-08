@@ -37,3 +37,6 @@ This script merely forwards a formatted package to the discord webhook.
 ## Building the discord bot
 demo_bot.py runs on a dedicated server (or one's own computer, if that works) - it is registered as a discord bot and listens for a specially formatted command. Once it hears the command in discord, it parses the contents (to get progress percent and ranks), then forms several images to represent a progress bar. Once the progress bar (and associated text) are drawn, the image is saved to disk, then attached as a HTTPS post back to discord to fully render in a channel.
 
+# End Result
+![Demo](roblox_discord_integration_demo.png)
+
