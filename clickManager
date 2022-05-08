@@ -1,0 +1,24 @@
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local remoteEventUpdateClicks = ReplicatedStorage:WaitForChild("UpdateClicks")
+local remoteEventUpdateRanks = ReplicatedStorage:WaitForChild("UpdateRanks")
+local remoteFunctionGetClicksRanks = ReplicatedStorage:WaitForChild("GetClicksRanks")
+
+_G.clicks = 0
+_G.ranks = 0
+
+local function onGetClicksRanks()
+	return _G.clicks, _G.ranks
+end
+
+remoteFunctionGetClicksRanks.OnServerInvoke = onGetClicksRanks
+
+local function UpdateClicks(player, new_clicks)
+	_G.clicks = new_clicks
+end 
+
+local function UpdateRanks(player, new_ranks)
+	_G.ranks = new_ranks
+end
+
+remoteEventUpdateClicks.OnServerEvent:Connect(UpdateClicks)
+remoteEventUpdateRanks.OnServerEvent:Connect(UpdateRanks)
